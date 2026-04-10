@@ -1,4 +1,4 @@
-import { AlertTriangle, TrendingDown, Banknote, Lightbulb, CheckCircle2, Activity, Brain, Wrench, Zap, Shield } from "lucide-react";
+import { AlertTriangle, TrendingDown, Banknote, Lightbulb, CheckCircle2, Activity, Brain, Wrench, Zap, Shield, XCircle, Gauge } from "lucide-react";
 import { motion } from "framer-motion";
 import KPICard from "./KPICard";
 import SimulationGauge from "./SimulationGauge";
@@ -6,6 +6,8 @@ import PainPointsTimeline from "./PainPointsTimeline";
 import PerformanceChart from "./PerformanceChart";
 import DesignIssuesTimeline from "./DesignIssuesTimeline";
 import DesignPerformanceChart from "./DesignPerformanceChart";
+import CommissioningTests from "./CommissioningTests";
+import SystemReadiness from "./SystemReadiness";
 
 const phaseData: Record<number, {
   kpis: { icon: React.ReactNode; value: string; label: string; accentClass: string; glowColor: string }[];
@@ -22,13 +24,13 @@ const phaseData: Record<number, {
     insight: "Simulation found 3 design conflicts and marginal TEK17 compliance. Optimization reduces energy use from 116 to 108 kWh/m²·yr, saving NOK 72,000/yr.",
   },
   2: {
-    gauge: { score: 91, label: "Commissioning Score" },
+    gauge: { score: 72, label: "Commissioning Score" },
     kpis: [
-      { icon: <CheckCircle2 className="h-7 w-7" />, value: "94%", label: "Systems Validated", accentClass: "text-primary", glowColor: "var(--primary)" },
-      { icon: <AlertTriangle className="h-7 w-7" />, value: "7", label: "Pre-Handover Issues", accentClass: "text-warning", glowColor: "var(--warning)" },
-      { icon: <Banknote className="h-7 w-7" />, value: "NOK 340K", label: "Defect Savings", accentClass: "text-success", glowColor: "var(--success)" },
+      { icon: <XCircle className="h-7 w-7" />, value: "4 / 12", label: "Failed Tests", accentClass: "text-destructive", glowColor: "var(--destructive)" },
+      { icon: <CheckCircle2 className="h-7 w-7" />, value: "847", label: "BACnet Points Verified", accentClass: "text-success", glowColor: "var(--success)" },
+      { icon: <Gauge className="h-7 w-7" />, value: "67%", label: "Handover Readiness", accentClass: "text-warning", glowColor: "var(--warning)" },
     ],
-    insight: "Virtual commissioning stress-tested all systems before handover, catching 7 issues that would have cost NOK 340K to fix post-occupancy.",
+    insight: "4 of 12 commissioning tests failed. Cooling interlock and fire damper issues must be resolved before handover. BACnet verification passed 847/847 points.",
   },
   3: {
     gauge: { score: 87, label: "Simulation Score" },
@@ -65,6 +67,14 @@ const PhasePanels = ({ phase }: { phase: number }) => {
       <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
         <DesignIssuesTimeline />
         <DesignPerformanceChart />
+      </section>
+    );
+  }
+  if (phase === 2) {
+    return (
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
+        <CommissioningTests />
+        <SystemReadiness />
       </section>
     );
   }
