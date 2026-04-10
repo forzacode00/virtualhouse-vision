@@ -2,6 +2,15 @@ import { useState, useRef } from "react";
 import { FileText, Upload, CheckCircle2, Clock, X, Sparkles, Loader2, ScrollText, Settings, MessageSquare, Send, Bot, FileSpreadsheet, Box, FileType } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
+const fileIcon = (name: string) => {
+  const ext = name.split(".").pop()?.toLowerCase();
+  if (ext === "pdf") return <FileText className="h-3.5 w-3.5 shrink-0 text-destructive/70" />;
+  if (ext === "csv") return <FileType className="h-3.5 w-3.5 shrink-0 text-success/70" />;
+  if (ext === "xlsx" || ext === "xls") return <FileSpreadsheet className="h-3.5 w-3.5 shrink-0 text-success/70" />;
+  if (ext === "ifc") return <Box className="h-3.5 w-3.5 shrink-0 text-primary/70" />;
+  return <FileText className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />;
+};
+
 const documents = [
   { name: "funksjonsbeskrivelse_parkveien.pdf", params: 42, status: "parsed" as const },
   { name: "tegningsgrunnlag_VVS_rev3.pdf", params: 28, status: "parsed" as const },
