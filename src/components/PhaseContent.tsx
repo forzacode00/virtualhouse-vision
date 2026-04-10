@@ -12,7 +12,7 @@ import UpgradeScenarios from "./UpgradeScenarios";
 import BeforeAfterComparison from "./BeforeAfterComparison";
 import LiveAnomalies from "./LiveAnomalies";
 import DesignVsActualChart from "./DesignVsActualChart";
-import ProjectData from "./ProjectData";
+
 
 const phaseData: Record<number, {
   kpis: { icon: React.ReactNode; value: string; label: string; accentClass: string; glowColor: string }[];
