@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import LifecycleStrip from "@/components/LifecycleStrip";
 import PhaseContent from "@/components/PhaseContent";
+import ProjectData from "@/components/ProjectData";
 
 const today = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
