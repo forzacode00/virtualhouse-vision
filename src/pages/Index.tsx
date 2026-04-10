@@ -27,13 +27,13 @@ const Index = () => {
       </header>
 
       {/* Context strip */}
-      <div className="mb-4 flex items-center justify-between border-b border-border pb-3 text-[11px] text-muted-foreground">
-        <span>Parkveien Kontorbygg · 6,000 m² · Oslo</span>
+      <div className="mb-6 flex items-center justify-between border-b border-border pb-3 text-[11px] text-muted-foreground">
+        <div className="flex items-center gap-4">
+          <span>Parkveien Kontorbygg · 6,000 m² · Oslo</span>
+          <ProjectData />
+        </div>
         <span>Simulation period: 2024–2034 · Last updated: {today}</span>
       </div>
-
-      {/* Data input / uploaded documents */}
-      <ProjectData />
 
       {/* Lifecycle navigation */}
       <LifecycleStrip activePhase={activePhase} onPhaseChange={setActivePhase} />
