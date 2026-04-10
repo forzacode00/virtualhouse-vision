@@ -1,18 +1,20 @@
-import { AlertTriangle, TrendingDown, Banknote } from "lucide-react";
+import { AlertTriangle, TrendingDown, Banknote, Lightbulb } from "lucide-react";
 import KPICard from "@/components/KPICard";
 import SimulationGauge from "@/components/SimulationGauge";
 import PainPointsTimeline from "@/components/PainPointsTimeline";
 import PerformanceChart from "@/components/PerformanceChart";
+import LifecycleStrip from "@/components/LifecycleStrip";
+
+const today = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
 const Index = () => (
   <div className="min-h-screen px-6 py-6 lg:px-10">
     {/* Header */}
-    <header className="mb-8 flex items-center gap-3">
+    <header className="mb-6 flex items-center gap-3">
       <h1 className="text-2xl text-foreground">
         <span className="font-light">Virtual</span>
         <span className="font-bold">House</span>
       </h1>
-      {/* DEMO indicator */}
       <div className="flex items-center gap-1.5 rounded-full border border-success/30 bg-success/10 px-2.5 py-0.5">
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
@@ -22,9 +24,14 @@ const Index = () => (
       </div>
     </header>
 
+    {/* Context strip */}
+    <div className="mb-6 flex items-center justify-between border-b border-border pb-3 text-[11px] text-muted-foreground">
+      <span>Parkveien Kontorbygg · 6,000 m² · Oslo</span>
+      <span>Simulation period: 2024–2034 · Last updated: {today}</span>
+    </div>
+
     {/* KPI Row */}
-    <section className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-      {/* Simulation Score — custom gauge card */}
+    <section className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <div className="group rounded-lg border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_0_24px_hsl(185_70%_50%/0.12)]">
         <SimulationGauge />
       </div>
@@ -39,14 +46,26 @@ const Index = () => (
       </div>
     </section>
 
+    {/* Savings callout */}
+    <div className="mb-8 flex items-start gap-2.5 rounded-md border border-success/20 bg-success/5 px-4 py-3 text-[12px] text-muted-foreground">
+      <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+      <span>
+        <span className="font-semibold text-success">What this means:</span>{" "}
+        Based on simulation: planned maintenance saves NOK 600K vs. reactive repairs over 24 months. Typical ROI: 4 months.
+      </span>
+    </div>
+
     {/* Main Content */}
-    <section className="mb-10 grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
+    <section className="mb-8 grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
       <PainPointsTimeline />
       <PerformanceChart />
     </section>
 
+    {/* Lifecycle strip */}
+    <LifecycleStrip />
+
     {/* Footer */}
-    <footer className="flex items-center justify-between border-t border-border pt-4 text-xs text-muted-foreground">
+    <footer className="mt-8 flex items-center justify-between border-t border-border pt-4 text-xs text-muted-foreground">
       <div className="text-foreground">
         <span className="font-light">▲</span>
       </div>
