@@ -42,13 +42,13 @@ const phaseData: Record<number, {
     insight: "Based on simulation: planned maintenance saves NOK 600K vs. reactive repairs over 24 months. Typical ROI: 4 months.",
   },
   4: {
-    gauge: { score: 93, label: "Optimization Score" },
+    gauge: { score: 87, label: "Simulation Score" },
     kpis: [
-      { icon: <Brain className="h-7 w-7" />, value: "18", label: "AI Recommendations", accentClass: "text-primary", glowColor: "var(--primary)" },
-      { icon: <TrendingDown className="h-7 w-7" />, value: "31%", label: "Energy Reduction", accentClass: "text-success", glowColor: "var(--success)" },
-      { icon: <Banknote className="h-7 w-7" />, value: "NOK 920K", label: "Annual Savings", accentClass: "text-success", glowColor: "var(--success)" },
+      { icon: <AlertTriangle className="h-7 w-7" />, value: "3", label: "Components at Risk", accentClass: "text-warning", glowColor: "var(--warning)" },
+      { icon: <TrendingDown className="h-7 w-7" />, value: "14%", label: "Energy Waste", accentClass: "text-destructive", glowColor: "var(--destructive)" },
+      { icon: <Banknote className="h-7 w-7" />, value: "NOK 600K", label: "Estimated Savings", accentClass: "text-success", glowColor: "var(--success)" },
     ],
-    insight: "AI-driven optimization combined with physics models identified 18 actionable improvements, reducing energy consumption by 31%.",
+    insight: "Based on simulation: planned maintenance saves NOK 600K vs. reactive repairs over 24 months. Typical ROI: 4 months.",
   },
   5: {
     gauge: { score: 78, label: "Upgrade Readiness" },
