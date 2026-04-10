@@ -26,13 +26,15 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Context strip */}
-      <div className="mb-6 flex items-center justify-between border-b border-border pb-3 text-[11px] text-muted-foreground">
-        <div className="flex items-center gap-4">
+      {/* Context strip + tabs */}
+      <div className="relative mb-6 border-b border-border pb-3">
+        <div className="flex items-center justify-between text-[11px] text-muted-foreground">
           <span>Parkveien Kontorbygg · 6,000 m² · Oslo</span>
+          <span>Simulation period: 2024–2034 · Last updated: {today}</span>
+        </div>
+        <div className="mt-2">
           <ProjectData />
         </div>
-        <span>Simulation period: 2024–2034 · Last updated: {today}</span>
       </div>
 
       {/* Lifecycle navigation */}
