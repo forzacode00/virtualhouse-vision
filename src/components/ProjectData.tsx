@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { FileText, Upload, CheckCircle2, Clock, X, Sparkles, Loader2, ScrollText, Settings, MessageSquare } from "lucide-react";
+import { useState, useRef } from "react";
+import { FileText, Upload, CheckCircle2, Clock, X, Sparkles, Loader2, ScrollText, Settings, MessageSquare, Send, Bot } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const documents = [
