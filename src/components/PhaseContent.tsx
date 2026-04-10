@@ -164,14 +164,14 @@ const PhaseContent = ({ phase }: { phase: number }) => {
       </section>
 
       {/* Insight callout — high visibility */}
-      <div className="mb-8 rounded-lg border border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent px-5 py-4 shadow-[0_0_20px_hsl(185_70%_50%/0.08)]">
-        <div className="mb-2 flex items-center gap-2">
-          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/20">
-            <Lightbulb className="h-3.5 w-3.5 text-primary" />
+      <div className="mb-8 rounded-md border border-primary/25 bg-gradient-to-r from-primary/8 via-primary/4 to-transparent px-4 py-3">
+        <div className="mb-1 flex items-center gap-2">
+          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/20">
+            <Lightbulb className="h-3 w-3 text-primary" />
           </div>
-          <span className="text-sm font-bold text-primary">VirtualHouse Insight</span>
+          <span className="text-xs font-semibold text-primary">VirtualHouse Insight</span>
         </div>
-        <p className="text-sm leading-relaxed text-foreground">
+        <p className="text-xs leading-relaxed text-foreground/80">
           {data.insight}
         </p>
       </div>
