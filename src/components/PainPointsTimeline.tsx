@@ -1,4 +1,5 @@
 import { Cog, Fan, Cpu, Wind, Flame } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const events = [
   { month: "OCT", year: "2024", title: "Heat Pump – Compressor Failure", severity: "CRITICAL" as const, estFailure: "Nov 15, 2024", cost: "NOK 120,000", icon: Cog },
@@ -14,44 +15,70 @@ const severityStyles = {
   INFO: "bg-info/20 text-info border-info/30",
 };
 
-const PainPointsTimeline = () => (
-  <div className="rounded-lg border border-border bg-card p-6">
-    <h2 className="mb-6 text-xl font-semibold text-foreground">Future Pain Points</h2>
-    <div className="space-y-0">
-      {events.map((e, i) => {
-        const Icon = e.icon;
-        return (
-          <div key={i} className="flex gap-4">
-            {/* Date column */}
-            <div className="flex w-14 shrink-0 flex-col items-center">
-              <span className="text-xs font-semibold text-muted-foreground">{e.month}</span>
-              <span className="text-xs text-muted-foreground">{e.year}</span>
-            </div>
-            {/* Timeline line */}
-            <div className="flex flex-col items-center">
-              <div className="h-3 w-px bg-border" />
-              <div className="h-2.5 w-2.5 rounded-full border-2 border-primary bg-background" />
-              {i < events.length - 1 && <div className="w-px flex-1 bg-border" />}
-            </div>
-            {/* Content */}
-            <div className="flex flex-1 items-center justify-between rounded-md border border-border bg-secondary/30 px-4 py-3 mb-3">
-              <div>
-                <div className="font-semibold text-foreground">{e.title}</div>
-                <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                  <span className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase border ${severityStyles[e.severity]}`}>
-                    {e.severity}
-                  </span>
-                  <span>Estimated Failure: {e.estFailure}</span>
-                  <span>Cost impact: {e.cost}</span>
-                </div>
+const severityBorder = {
+  CRITICAL: "border-l-destructive",
+  WARNING: "border-l-warning",
+  INFO: "border-l-info",
+};
+
+const PainPointsTimeline = () => {
+  const [visibleCount, setVisibleCount] = useState(0);
+
+  useEffect(() => {
+    const timers: NodeJS.Timeout[] = [];
+    events.forEach((_, i) => {
+      timers.push(setTimeout(() => setVisibleCount(i + 1), 200 + i * 150));
+    });
+    return () => timers.forEach(clearTimeout);
+  }, []);
+
+  return (
+    <div className="rounded-lg border border-border bg-card p-6">
+      <h2 className="mb-6 text-xl font-semibold text-foreground">Future Pain Points</h2>
+      <div className="space-y-0">
+        {events.map((e, i) => {
+          const Icon = e.icon;
+          const visible = i < visibleCount;
+          return (
+            <div
+              key={i}
+              className="flex gap-4 transition-all duration-500"
+              style={{
+                opacity: visible ? 1 : 0,
+                transform: visible ? "translateY(0)" : "translateY(12px)",
+              }}
+            >
+              {/* Date column */}
+              <div className="flex w-14 shrink-0 flex-col items-center">
+                <span className="text-xs font-semibold text-muted-foreground">{e.month}</span>
+                <span className="text-xs text-muted-foreground">{e.year}</span>
               </div>
-              <Icon className="h-6 w-6 shrink-0 text-muted-foreground/50" />
+              {/* Timeline line */}
+              <div className="flex flex-col items-center">
+                <div className="h-3 w-px bg-border" />
+                <div className="h-2.5 w-2.5 rounded-full border-2 border-primary bg-background" />
+                {i < events.length - 1 && <div className="w-px flex-1 bg-border" />}
+              </div>
+              {/* Content */}
+              <div className={`flex flex-1 items-center justify-between rounded-md border border-border border-l-[3px] ${severityBorder[e.severity]} bg-secondary/30 px-4 py-3 mb-3`}>
+                <div>
+                  <div className="font-semibold text-foreground">{e.title}</div>
+                  <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                    <span className={`rounded px-2 py-0.5 text-[10px] font-bold uppercase border ${severityStyles[e.severity]}`}>
+                      {e.severity}
+                    </span>
+                    <span>Estimated Failure: {e.estFailure}</span>
+                    <span>Cost impact: {e.cost}</span>
+                  </div>
+                </div>
+                <Icon className="h-6 w-6 shrink-0 text-muted-foreground/50" />
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default PainPointsTimeline;
