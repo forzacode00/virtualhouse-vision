@@ -6,7 +6,10 @@ const documents = [
   { name: "funksjonsbeskrivelse_parkveien.pdf", params: 42, status: "parsed" as const },
   { name: "tegningsgrunnlag_VVS_rev3.pdf", params: 28, status: "parsed" as const },
   { name: "energiberegning_simien.csv", params: 64, status: "parsed" as const },
-  { name: "sdanlegg_punktliste.xlsx", params: null, status: "processing" as const },
+  { name: "BIM_arkitekt_parkveien.ifc", params: 156, status: "parsed" as const },
+  { name: "driftslogg_2024_Q1-Q3.xlsx", params: 31, status: "parsed" as const },
+  { name: "sdanlegg_punktliste.xlsx", params: 89, status: "parsed" as const },
+  { name: "sdanlegg_trendeksport_mars.csv", params: null, status: "processing" as const },
 ];
 
 const suggestedQuestions = [
