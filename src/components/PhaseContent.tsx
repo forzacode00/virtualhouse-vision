@@ -18,6 +18,10 @@ const phaseData: Record<number, {
   kpis: { icon: React.ReactNode; value: string; label: string; accentClass: string; glowColor: string }[];
   insight: string;
   gauge: { score: number; label: string };
+  sectionLabel: string;
+  sectionDesc: string;
+  detailLabel: string;
+  detailDesc: string;
 }> = {
   1: {
     gauge: { score: 87, label: "Simulation Score" },
@@ -27,6 +31,10 @@ const phaseData: Record<number, {
       { icon: <Zap className="h-7 w-7" />, value: "116", label: "Projected kWh/m²·yr", accentClass: "text-warning", glowColor: "var(--warning)" },
     ],
     insight: "Simulation found 3 design conflicts and marginal TEK17 compliance. Optimization reduces energy use from 116 to 108 kWh/m²·yr, saving NOK 72,000/yr.",
+    sectionLabel: "Key metrics",
+    sectionDesc: "Summary of the simulation results for this design phase",
+    detailLabel: "Detailed analysis",
+    detailDesc: "Design issues identified and simulated performance impact",
   },
   2: {
     gauge: { score: 72, label: "Commissioning Score" },
@@ -36,6 +44,10 @@ const phaseData: Record<number, {
       { icon: <Gauge className="h-7 w-7" />, value: "67%", label: "Handover Readiness", accentClass: "text-warning", glowColor: "var(--warning)" },
     ],
     insight: "4 of 12 commissioning tests failed. Cooling interlock and fire damper issues must be resolved before handover. BACnet verification passed 847/847 points.",
+    sectionLabel: "Key metrics",
+    sectionDesc: "Virtual commissioning test results before physical handover",
+    detailLabel: "Test results & system status",
+    detailDesc: "Individual test outcomes and readiness per system",
   },
   3: {
     gauge: { score: 91, label: "Building Health" },
@@ -45,6 +57,10 @@ const phaseData: Record<number, {
       { icon: <Banknote className="h-7 w-7" />, value: "NOK 34K", label: "Monthly Savings Found", accentClass: "text-success", glowColor: "var(--success)" },
     ],
     insight: "Live monitoring detected 2 anomalies: valve actuator in zone 3B and AHU-3 SFP exceeding TEK17 limit. Combined impact: NOK 30,000/yr. Root causes identified.",
+    sectionLabel: "Key metrics",
+    sectionDesc: "Live operational data compared against simulation baseline",
+    detailLabel: "Anomalies & performance",
+    detailDesc: "Active issues detected and energy performance tracking",
   },
   4: {
     gauge: { score: 87, label: "Simulation Score" },
@@ -54,6 +70,10 @@ const phaseData: Record<number, {
       { icon: <Banknote className="h-7 w-7" />, value: "NOK 600K", label: "Estimated Savings", accentClass: "text-success", glowColor: "var(--success)" },
     ],
     insight: "Based on simulation: planned maintenance saves NOK 600K vs. reactive repairs over 24 months. Typical ROI: 4 months.",
+    sectionLabel: "Key metrics",
+    sectionDesc: "AI-driven predictions for maintenance and energy optimization",
+    detailLabel: "Predictions & simulations",
+    detailDesc: "Forecasted failures and long-term performance degradation",
   },
   5: {
     gauge: { score: 62, label: "Current Score" },
@@ -63,6 +83,10 @@ const phaseData: Record<number, {
       { icon: <Activity className="h-7 w-7" />, value: "2.8 yrs", label: "Payback Period", accentClass: "text-success", glowColor: "var(--success)" },
     ],
     insight: "Simulated 4 upgrade scenarios — the optimal combination yields 37% energy reduction with a 2.8-year payback period, saving NOK 420K annually.",
+    sectionLabel: "Key metrics",
+    sectionDesc: "Current building score and upgrade potential",
+    detailLabel: "Upgrade scenarios",
+    detailDesc: "Simulated options with cost, savings and payback analysis",
   },
 };
 
