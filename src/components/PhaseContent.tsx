@@ -143,13 +143,16 @@ const PhaseContent = ({ phase }: { phase: number }) => {
       transition={{ duration: 0.3 }}
     >
       {/* Section label: KPIs */}
-      <div className="mb-3">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{data.sectionLabel}</h2>
-        <p className="text-[11px] text-muted-foreground/60">{data.sectionDesc}</p>
+      <div className="mb-4 flex items-center gap-3">
+        <div className="h-5 w-1 rounded-full bg-primary" />
+        <div>
+          <h2 className="text-sm font-bold text-foreground">{data.sectionLabel}</h2>
+          <p className="text-[11px] text-muted-foreground">{data.sectionDesc}</p>
+        </div>
       </div>
 
       {/* KPI Row */}
-      <section className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <section className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <div className="group rounded-lg border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_0_24px_hsl(185_70%_50%/0.12)]">
           <SimulationGauge score={data.gauge.score} label={data.gauge.label} />
         </div>
@@ -160,13 +163,15 @@ const PhaseContent = ({ phase }: { phase: number }) => {
         ))}
       </section>
 
-      {/* Insight callout — prominent guide element */}
-      <div className="mb-8 rounded-lg border border-primary/20 bg-primary/5 px-5 py-4">
-        <div className="mb-1.5 flex items-center gap-2">
-          <Lightbulb className="h-4 w-4 text-primary" />
-          <span className="text-xs font-semibold text-primary">VirtualHouse Insight</span>
+      {/* Insight callout — high visibility */}
+      <div className="mb-8 rounded-lg border border-primary/30 bg-gradient-to-r from-primary/10 via-primary/5 to-transparent px-5 py-4 shadow-[0_0_20px_hsl(185_70%_50%/0.08)]">
+        <div className="mb-2 flex items-center gap-2">
+          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/20">
+            <Lightbulb className="h-3.5 w-3.5 text-primary" />
+          </div>
+          <span className="text-sm font-bold text-primary">VirtualHouse Insight</span>
         </div>
-        <p className="text-sm leading-relaxed text-foreground/80">
+        <p className="text-sm leading-relaxed text-foreground">
           {data.insight}
         </p>
       </div>
