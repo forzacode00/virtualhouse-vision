@@ -132,7 +132,7 @@ const ProjectData = () => {
                     <div className="space-y-1">
                       {documents.map((doc, i) => (
                         <div key={i} className="flex items-center gap-3 rounded px-3 py-2 transition-colors hover:bg-secondary/30">
-                          <FileText className="h-3.5 w-3.5 shrink-0 text-primary/60" />
+                          {fileIcon(doc.name)}
                           <span className="flex-1 truncate text-sm text-foreground">{doc.name}</span>
                           {doc.status === "parsed" ? (
                             <span className="flex items-center gap-1 text-[10px] text-success">
