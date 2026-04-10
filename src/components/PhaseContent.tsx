@@ -177,9 +177,12 @@ const PhaseContent = ({ phase }: { phase: number }) => {
       </div>
 
       {/* Section label: Details */}
-      <div className="mb-3">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{data.detailLabel}</h2>
-        <p className="text-[11px] text-muted-foreground/60">{data.detailDesc}</p>
+      <div className="mb-4 flex items-center gap-3">
+        <div className="h-5 w-1 rounded-full bg-primary" />
+        <div>
+          <h2 className="text-sm font-bold text-foreground">{data.detailLabel}</h2>
+          <p className="text-[11px] text-muted-foreground">{data.detailDesc}</p>
+        </div>
       </div>
 
       {/* Main Content */}
