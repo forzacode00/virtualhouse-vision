@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import LifecycleStrip from "@/components/LifecycleStrip";
 import PhaseContent from "@/components/PhaseContent";
+import ProjectData from "@/components/ProjectData";
 
 const today = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
@@ -26,10 +27,13 @@ const Index = () => {
       </header>
 
       {/* Context strip */}
-      <div className="mb-6 flex items-center justify-between border-b border-border pb-3 text-[11px] text-muted-foreground">
+      <div className="mb-4 flex items-center justify-between border-b border-border pb-3 text-[11px] text-muted-foreground">
         <span>Parkveien Kontorbygg · 6,000 m² · Oslo</span>
         <span>Simulation period: 2024–2034 · Last updated: {today}</span>
       </div>
+
+      {/* Data input / uploaded documents */}
+      <ProjectData />
 
       {/* Lifecycle navigation */}
       <LifecycleStrip activePhase={activePhase} onPhaseChange={setActivePhase} />

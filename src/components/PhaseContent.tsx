@@ -12,7 +12,7 @@ import UpgradeScenarios from "./UpgradeScenarios";
 import BeforeAfterComparison from "./BeforeAfterComparison";
 import LiveAnomalies from "./LiveAnomalies";
 import DesignVsActualChart from "./DesignVsActualChart";
-import ProjectData from "./ProjectData";
+
 
 const phaseData: Record<number, {
   kpis: { icon: React.ReactNode; value: string; label: string; accentClass: string; glowColor: string }[];
@@ -69,13 +69,10 @@ const phaseData: Record<number, {
 const PhasePanels = ({ phase }: { phase: number }) => {
   if (phase === 1) {
     return (
-      <>
-        <ProjectData />
-        <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
-          <DesignIssuesTimeline />
-          <DesignPerformanceChart />
-        </section>
-      </>
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
+        <DesignIssuesTimeline />
+        <DesignPerformanceChart />
+      </section>
     );
   }
   if (phase === 2) {
