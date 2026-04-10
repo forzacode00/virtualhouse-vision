@@ -38,6 +38,18 @@ const ProjectData = () => {
 
   const toggle = (panel: PanelType) => setActivePanel(prev => prev === panel ? null : panel);
 
+  const sendMessage = (text: string) => {
+    if (!text.trim()) return;
+    setChatMessages(prev => [...prev, { role: "user", text }]);
+    setChatInput("");
+    setTyping(true);
+    const response = simulatedResponses[text] || `Basert på datagrunnlaget for Parkveien Kontorbygg: dette spørsmålet krever dypere analyse av de ${documents.reduce((s, d) => s + (d.params ?? 0), 0)} parameterne. Kjør en full simulering for detaljert svar.`;
+    setTimeout(() => {
+      setChatMessages(prev => [...prev, { role: "ai", text: response }]);
+      setTyping(false);
+    }, 1200);
+  };
+
   const handleUpload = () => {
     setUploading(true);
     setTimeout(() => setUploading(false), 2200);
