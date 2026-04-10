@@ -10,6 +10,8 @@ import CommissioningTests from "./CommissioningTests";
 import SystemReadiness from "./SystemReadiness";
 import UpgradeScenarios from "./UpgradeScenarios";
 import BeforeAfterComparison from "./BeforeAfterComparison";
+import LiveAnomalies from "./LiveAnomalies";
+import DesignVsActualChart from "./DesignVsActualChart";
 
 const phaseData: Record<number, {
   kpis: { icon: React.ReactNode; value: string; label: string; accentClass: string; glowColor: string }[];
@@ -35,13 +37,13 @@ const phaseData: Record<number, {
     insight: "4 of 12 commissioning tests failed. Cooling interlock and fire damper issues must be resolved before handover. BACnet verification passed 847/847 points.",
   },
   3: {
-    gauge: { score: 87, label: "Simulation Score" },
+    gauge: { score: 91, label: "Building Health" },
     kpis: [
-      { icon: <AlertTriangle className="h-7 w-7" />, value: "3", label: "Components at Risk", accentClass: "text-warning", glowColor: "var(--warning)" },
-      { icon: <TrendingDown className="h-7 w-7" />, value: "14%", label: "Energy Waste", accentClass: "text-destructive", glowColor: "var(--destructive)" },
-      { icon: <Banknote className="h-7 w-7" />, value: "NOK 600K", label: "Estimated Savings", accentClass: "text-success", glowColor: "var(--success)" },
+      { icon: <AlertTriangle className="h-7 w-7" />, value: "2", label: "Active Anomalies", accentClass: "text-warning", glowColor: "var(--warning)" },
+      { icon: <TrendingDown className="h-7 w-7" />, value: "+7.5%", label: "Energy vs. Design", accentClass: "text-warning", glowColor: "var(--warning)" },
+      { icon: <Banknote className="h-7 w-7" />, value: "NOK 34K", label: "Monthly Savings Found", accentClass: "text-success", glowColor: "var(--success)" },
     ],
-    insight: "Based on simulation: planned maintenance saves NOK 600K vs. reactive repairs over 24 months. Typical ROI: 4 months.",
+    insight: "Live monitoring detected 2 anomalies: valve actuator in zone 3B and AHU-3 SFP exceeding TEK17 limit. Combined impact: NOK 30,000/yr. Root causes identified.",
   },
   4: {
     gauge: { score: 87, label: "Simulation Score" },
@@ -77,6 +79,14 @@ const PhasePanels = ({ phase }: { phase: number }) => {
       <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
         <CommissioningTests />
         <SystemReadiness />
+      </section>
+    );
+  }
+  if (phase === 3) {
+    return (
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
+        <LiveAnomalies />
+        <DesignVsActualChart />
       </section>
     );
   }

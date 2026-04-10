@@ -2,16 +2,16 @@ import { XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area
 
 const data = [
   { year: 2024, heating: 95, cooling: 92, ahu: 82 },
-  { year: 2025, heating: 93, cooling: 89, ahu: 80 },
-  { year: 2026, heating: 91, cooling: 85, ahu: 76 },
-  { year: 2027, heating: 89, cooling: 80, ahu: 72 },
-  { year: 2028, heating: 87, cooling: 75, ahu: 68 },
-  { year: 2029, heating: 85, cooling: 70, ahu: 65 },
-  { year: 2030, heating: 83, cooling: 66, ahu: 62 },
-  { year: 2031, heating: 80, cooling: 63, ahu: 60 },
-  { year: 2032, heating: 78, cooling: 62, ahu: 58 },
-  { year: 2033, heating: 76, cooling: 61, ahu: 56 },
-  { year: 2034, heating: 75, cooling: 60, ahu: 55 },
+  { year: 2025, heating: 93, cooling: 90, ahu: 80 },
+  { year: 2026, heating: 91, cooling: 88, ahu: 78 },
+  { year: 2027, heating: 89, cooling: 85, ahu: 76 },
+  { year: 2028, heating: 87, cooling: 83, ahu: 74 },
+  { year: 2029, heating: 85, cooling: 80, ahu: 72 },
+  { year: 2030, heating: 83, cooling: 78, ahu: 70 },
+  { year: 2031, heating: 81, cooling: 76, ahu: 69 },
+  { year: 2032, heating: 79, cooling: 74, ahu: 68 },
+  { year: 2033, heating: 77, cooling: 72, ahu: 66 },
+  { year: 2034, heating: 75, cooling: 70, ahu: 65 },
 ];
 
 const PerformanceChart = () => (
