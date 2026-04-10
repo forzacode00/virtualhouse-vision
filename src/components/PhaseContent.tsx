@@ -69,13 +69,10 @@ const phaseData: Record<number, {
 const PhasePanels = ({ phase }: { phase: number }) => {
   if (phase === 1) {
     return (
-      <>
-        <ProjectData />
-        <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
-          <DesignIssuesTimeline />
-          <DesignPerformanceChart />
-        </section>
-      </>
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
+        <DesignIssuesTimeline />
+        <DesignPerformanceChart />
+      </section>
     );
   }
   if (phase === 2) {

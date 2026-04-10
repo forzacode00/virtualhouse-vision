@@ -1,28 +1,42 @@
 import { useState } from "react";
-import { CheckCircle2, Upload, Sparkles, FileText, Loader2 } from "lucide-react";
+import { CheckCircle2, Upload, Sparkles, FileText, Loader2, Clock, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const parameters = [
-  { name: "Location", value: "Oslo (climate zone)", source: "Manual" },
-  { name: "BRA / BTA", value: "6,000 / 7,200 m²", source: "Uploaded FBD" },
-  { name: "Building type", value: "Office (kontorbygg)", source: "Uploaded FBD" },
-  { name: "Floors", value: "9 (U1 + plan 1-8)", source: "Uploaded FBD" },
-  { name: "Heat source", value: "District heating (fjernvarme)", source: "Manual" },
-  { name: "Supply temp radiators", value: "55 / 40 °C", source: "Uploaded FBD" },
-  { name: "Design outdoor temp (DUT)", value: "-21.8 °C (Oslo, NS-EN 12831)", source: "Auto" },
-  { name: "Room setpoint", value: "21 °C", source: "TEK17 default" },
-  { name: "Installed heating capacity", value: "150 kW", source: "Uploaded FBD" },
-  { name: "Ventilation SFP target", value: "≤ 1.5 kW/(m³/s)", source: "TEK17 §14-3" },
-  { name: "Heat recovery target", value: "≥ 80%", source: "TEK17 §14-3" },
-  { name: "Cooling capacity", value: "200 kW", source: "Uploaded FBD" },
+const documents = [
+  {
+    name: "funksjonsbeskrivelse_parkveien.pdf",
+    type: "Funksjonsbeskrivelse (FBD)",
+    status: "parsed" as const,
+    params: 42,
+    date: "12. mar 2025",
+  },
+  {
+    name: "tegningsgrunnlag_VVS_rev3.pdf",
+    type: "VVS-tegninger",
+    status: "parsed" as const,
+    params: 28,
+    date: "14. mar 2025",
+  },
+  {
+    name: "energiberegning_simien.csv",
+    type: "SIMIEN-eksport",
+    status: "parsed" as const,
+    params: 64,
+    date: "18. mar 2025",
+  },
+  {
+    name: "sdanlegg_punktliste.xlsx",
+    type: "SD-anlegg punktliste",
+    status: "processing" as const,
+    params: null,
+    date: "I dag",
+  },
 ];
 
-const sourceBadge: Record<string, string> = {
-  "Uploaded FBD": "bg-primary/15 text-primary border-primary/25",
-  "Manual": "bg-muted text-muted-foreground border-border",
-  "Auto": "bg-info/15 text-info border-info/25",
-  "TEK17 default": "bg-warning/15 text-warning border-warning/25",
-  "TEK17 §14-3": "bg-warning/15 text-warning border-warning/25",
+const statusConfig = {
+  parsed: { icon: CheckCircle2, label: "Analysert", className: "text-success" },
+  processing: { icon: Clock, label: "Analyseres…", className: "text-warning animate-pulse" },
+  error: { icon: AlertCircle, label: "Feil", className: "text-destructive" },
 };
 
 const ProjectData = () => {
@@ -30,96 +44,96 @@ const ProjectData = () => {
 
   const handleUpload = () => {
     setUploading(true);
-    setTimeout(() => setUploading(false), 2000);
+    setTimeout(() => setUploading(false), 2200);
   };
 
-  return (
-    <section className="mb-6 rounded-lg border border-border bg-card p-6">
-      <h2 className="mb-1 text-xl font-semibold text-foreground">Project Data</h2>
-      <p className="mb-5 text-sm text-muted-foreground">Parkveien Kontorbygg</p>
+  const totalParams = documents.reduce((sum, d) => sum + (d.params ?? 0), 0);
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[60fr_40fr]">
-        {/* Parameter table */}
-        <div className="overflow-auto rounded-md border border-border">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border bg-secondary/40">
-                <th className="px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wider text-muted-foreground">Parameter</th>
-                <th className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wider text-muted-foreground">Value</th>
-                <th className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wider text-muted-foreground">Source</th>
-              </tr>
-            </thead>
-            <tbody>
-              {parameters.map((p, i) => (
-                <tr
-                  key={i}
-                  className="border-b border-border/50 transition-colors hover:bg-secondary/20"
-                >
-                  <td className="px-4 py-2 text-foreground">{p.name}</td>
-                  <td className="px-4 py-2 text-right font-mono font-bold text-foreground">{p.value}</td>
-                  <td className="px-4 py-2 text-right">
-                    <span className={`inline-block rounded-full border px-2 py-0.5 text-[10px] font-semibold ${sourceBadge[p.source] ?? sourceBadge["Manual"]}`}>
-                      {p.source}
+  return (
+    <section className="mb-6 rounded-lg border border-border bg-card p-5">
+      <div className="mb-4 flex items-center justify-between">
+        <div>
+          <h2 className="text-sm font-semibold text-foreground">Datagrunnlag</h2>
+          <p className="text-[11px] text-muted-foreground">
+            Dokumenter lastet opp og analysert av AI — danner grunnlag for simulering
+          </p>
+        </div>
+        <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/60">
+          <Sparkles className="h-3.5 w-3.5" />
+          AI-drevet dokumentanalyse
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1fr_auto]">
+        {/* Document list */}
+        <div className="space-y-2">
+          {documents.map((doc, i) => {
+            const s = statusConfig[doc.status];
+            const StatusIcon = s.icon;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.08 }}
+                className="flex items-center gap-3 rounded-md border border-border/60 bg-secondary/20 px-4 py-2.5 transition-colors hover:bg-secondary/40"
+              >
+                <FileText className="h-4 w-4 shrink-0 text-primary/70" />
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="truncate text-sm font-medium text-foreground">{doc.name}</span>
+                    <span className="shrink-0 rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
+                      {doc.type}
                     </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                  </div>
+                  <div className="mt-0.5 flex items-center gap-3 text-[11px] text-muted-foreground">
+                    <span>{doc.date}</span>
+                    {doc.params && <span>{doc.params} parametere ekstrahert</span>}
+                  </div>
+                </div>
+                <div className={`flex items-center gap-1.5 text-[11px] font-medium ${s.className}`}>
+                  <StatusIcon className="h-3.5 w-3.5" />
+                  {s.label}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Upload area */}
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-1 flex-col items-center justify-center rounded-lg border-2 border-dashed border-border bg-secondary/20 p-6 text-center">
-            <AnimatePresence mode="wait">
-              {uploading ? (
-                <motion.div
-                  key="uploading"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="flex flex-col items-center gap-3"
-                >
-                  <Loader2 className="h-8 w-8 animate-spin text-primary" />
-                  <p className="text-sm font-medium text-foreground">Parsing document…</p>
-                  <p className="text-xs text-muted-foreground">Extracting parameters with AI</p>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="done"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  className="flex flex-col items-center gap-3"
-                >
-                  <div className="flex items-center gap-2">
-                    <FileText className="h-5 w-5 text-primary" />
-                    <span className="text-sm font-medium text-foreground">funksjonsbeskrivelse_parkveien.pdf</span>
-                    <CheckCircle2 className="h-4 w-4 text-success" />
-                  </div>
-                  <p className="text-xs text-success font-semibold">Parsed successfully</p>
-                  <p className="text-xs text-muted-foreground">42 parameters extracted automatically</p>
-                  <div className="mt-1 flex items-center gap-1.5 text-[11px] text-muted-foreground/70">
-                    <Sparkles className="h-3.5 w-3.5" />
-                    AI-powered document parsing
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+        {/* Summary + upload */}
+        <div className="flex flex-col items-center gap-3 lg:w-56">
+          <div className="flex w-full flex-col items-center rounded-md border border-border/60 bg-secondary/20 p-4 text-center">
+            <span className="font-mono text-2xl font-bold text-primary">{totalParams}</span>
+            <span className="text-[11px] text-muted-foreground">parametere totalt</span>
+            <span className="mt-1 text-[10px] text-muted-foreground/60">fra {documents.length} dokumenter</span>
           </div>
 
-          <div className="flex gap-3">
-            <button
-              onClick={handleUpload}
-              className="flex flex-1 items-center justify-center gap-2 rounded-md border border-border px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-secondary/40"
-            >
-              <Upload className="h-3.5 w-3.5" />
-              Upload new document
-            </button>
-            <button className="flex flex-1 items-center justify-center gap-2 rounded-md border border-border px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-secondary/40">
-              Edit parameters
-            </button>
-          </div>
+          <AnimatePresence mode="wait">
+            {uploading ? (
+              <motion.div
+                key="uploading"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="flex w-full flex-col items-center gap-2 rounded-md border-2 border-dashed border-primary/40 bg-primary/5 p-4"
+              >
+                <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                <span className="text-xs text-foreground">Analyserer dokument…</span>
+              </motion.div>
+            ) : (
+              <motion.button
+                key="upload"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                onClick={handleUpload}
+                className="flex w-full items-center justify-center gap-2 rounded-md border-2 border-dashed border-border bg-secondary/10 px-3 py-3 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/40 hover:bg-primary/5 hover:text-foreground"
+              >
+                <Upload className="h-4 w-4" />
+                Last opp dokument
+              </motion.button>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>
