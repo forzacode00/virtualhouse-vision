@@ -175,19 +175,69 @@ const ProjectData = () => {
                 )}
 
                 {activePanel === "ask" && (
-                  <div className="space-y-2">
-                    {suggestedQuestions.map((q, i) => (
-                      <button
-                        key={i}
-                        className="w-full rounded-md border border-border px-3 py-2 text-left text-xs text-foreground transition-colors hover:bg-secondary/30"
-                      >
-                        {q}
-                      </button>
-                    ))}
-                    <div className="mt-2 flex items-center gap-2 rounded-md border border-border px-3 py-2">
-                      <MessageSquare className="h-3.5 w-3.5 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">Spør om hva som helst…</span>
+                  <div className="flex flex-col" style={{ maxHeight: 360 }}>
+                    {/* Messages */}
+                    <div className="flex-1 space-y-3 overflow-y-auto pr-1" style={{ maxHeight: 260 }}>
+                      {chatMessages.length === 0 && (
+                        <div className="space-y-1.5">
+                          <p className="text-[11px] text-muted-foreground mb-2">Foreslåtte spørsmål:</p>
+                          {suggestedQuestions.map((q, i) => (
+                            <button
+                              key={i}
+                              onClick={() => sendMessage(q)}
+                              className="w-full rounded-md border border-border px-3 py-2 text-left text-xs text-foreground transition-colors hover:bg-secondary/30"
+                            >
+                              {q}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                      {chatMessages.map((msg, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, y: 4 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className={`flex gap-2 ${msg.role === "user" ? "justify-end" : ""}`}
+                        >
+                          {msg.role === "ai" && <Bot className="mt-0.5 h-4 w-4 shrink-0 text-primary" />}
+                          <div className={`rounded-md px-3 py-2 text-xs leading-relaxed ${
+                            msg.role === "user"
+                              ? "bg-primary/15 text-foreground max-w-[80%]"
+                              : "bg-secondary/40 text-foreground max-w-[90%]"
+                          }`}>
+                            {msg.text.split("\n").map((line, j) => <p key={j} className={j > 0 ? "mt-1" : ""}>{line}</p>)}
+                          </div>
+                        </motion.div>
+                      ))}
+                      {typing && (
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <Bot className="h-4 w-4 text-primary" />
+                          <Loader2 className="h-3 w-3 animate-spin" />
+                          <span>Analyserer datagrunnlag…</span>
+                        </motion.div>
+                      )}
                     </div>
+                    {/* Input */}
+                    <form
+                      onSubmit={(e) => { e.preventDefault(); sendMessage(chatInput); }}
+                      className="mt-3 flex items-center gap-2 border-t border-border pt-3"
+                    >
+                      <input
+                        ref={inputRef}
+                        value={chatInput}
+                        onChange={(e) => setChatInput(e.target.value)}
+                        placeholder="Spør om bygget, TEK17, energi…"
+                        className="flex-1 rounded-md border border-border bg-secondary/20 px-3 py-2 text-xs text-foreground placeholder:text-muted-foreground/50 outline-none focus:border-primary/40"
+                        disabled={typing}
+                      />
+                      <button
+                        type="submit"
+                        disabled={!chatInput.trim() || typing}
+                        className="rounded-md bg-primary/15 p-2 text-primary transition-colors hover:bg-primary/25 disabled:opacity-30"
+                      >
+                        <Send className="h-3.5 w-3.5" />
+                      </button>
+                    </form>
                   </div>
                 )}
               </div>
