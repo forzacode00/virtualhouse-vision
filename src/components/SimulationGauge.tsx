@@ -1,4 +1,4 @@
-const SimulationGauge = ({ score = 87, max = 100 }: { score?: number; max?: number }) => {
+const SimulationGauge = ({ score = 87, max = 100, label = "Simulation Score" }: { score?: number; max?: number; label?: string }) => {
   const pct = score / max;
   const radius = 52;
   const stroke = 7;
@@ -39,7 +39,7 @@ const SimulationGauge = ({ score = 87, max = 100 }: { score?: number; max?: numb
         </div>
       </div>
       <div>
-        <div className="text-sm text-muted-foreground">Simulation Score</div>
+        <div className="text-sm text-muted-foreground">{label}</div>
       </div>
     </div>
   );
