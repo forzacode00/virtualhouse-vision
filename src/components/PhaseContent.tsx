@@ -143,11 +143,11 @@ const PhaseContent = ({ phase }: { phase: number }) => {
       transition={{ duration: 0.3 }}
     >
       {/* Section label: KPIs */}
-      <div className="mb-4 flex items-center gap-3">
-        <div className="h-5 w-1 rounded-full bg-primary" />
+      <div className="mb-5 flex items-center gap-3">
+        <div className="h-6 w-1 rounded-full bg-primary" />
         <div>
-          <h2 className="text-sm font-bold text-foreground">{data.sectionLabel}</h2>
-          <p className="text-[11px] text-muted-foreground">{data.sectionDesc}</p>
+          <h2 className="text-base font-bold text-foreground">{data.sectionLabel}</h2>
+          <p className="text-xs text-muted-foreground">{data.sectionDesc}</p>
         </div>
       </div>
 
