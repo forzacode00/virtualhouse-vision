@@ -8,6 +8,8 @@ import DesignIssuesTimeline from "./DesignIssuesTimeline";
 import DesignPerformanceChart from "./DesignPerformanceChart";
 import CommissioningTests from "./CommissioningTests";
 import SystemReadiness from "./SystemReadiness";
+import UpgradeScenarios from "./UpgradeScenarios";
+import BeforeAfterComparison from "./BeforeAfterComparison";
 
 const phaseData: Record<number, {
   kpis: { icon: React.ReactNode; value: string; label: string; accentClass: string; glowColor: string }[];
@@ -51,13 +53,13 @@ const phaseData: Record<number, {
     insight: "Based on simulation: planned maintenance saves NOK 600K vs. reactive repairs over 24 months. Typical ROI: 4 months.",
   },
   5: {
-    gauge: { score: 78, label: "Upgrade Readiness" },
+    gauge: { score: 62, label: "Current Score" },
     kpis: [
-      { icon: <Wrench className="h-7 w-7" />, value: "4", label: "Upgrade Scenarios", accentClass: "text-primary", glowColor: "var(--primary)" },
-      { icon: <Activity className="h-7 w-7" />, value: "45%", label: "Efficiency Gain Potential", accentClass: "text-success", glowColor: "var(--success)" },
-      { icon: <Banknote className="h-7 w-7" />, value: "NOK 2.1M", label: "10-Year ROI", accentClass: "text-success", glowColor: "var(--success)" },
+      { icon: <Wrench className="h-7 w-7" />, value: "4", label: "Upgrade Options", accentClass: "text-primary", glowColor: "var(--primary)" },
+      { icon: <Banknote className="h-7 w-7" />, value: "NOK 890K/yr", label: "Potential Savings", accentClass: "text-success", glowColor: "var(--success)" },
+      { icon: <Activity className="h-7 w-7" />, value: "2.8 yrs", label: "Payback Period", accentClass: "text-success", glowColor: "var(--success)" },
     ],
-    insight: "Simulated 4 upgrade scenarios before investing — the optimal path yields 45% efficiency gains with NOK 2.1M ROI over 10 years.",
+    insight: "Simulated 4 upgrade scenarios — the optimal combination yields 37% energy reduction with a 2.8-year payback period, saving NOK 420K annually.",
   },
 };
 
@@ -75,6 +77,14 @@ const PhasePanels = ({ phase }: { phase: number }) => {
       <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
         <CommissioningTests />
         <SystemReadiness />
+      </section>
+    );
+  }
+  if (phase === 5) {
+    return (
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
+        <UpgradeScenarios />
+        <BeforeAfterComparison />
       </section>
     );
   }
