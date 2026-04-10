@@ -19,6 +19,13 @@ const suggestedQuestions = [
   "Hvilke designkonflikter er funnet?",
 ];
 
+const simulatedResponses: Record<string, string> = {
+  "Hva er dimensjonerende utetemperatur for Oslo?": "Dimensjonerende utetemperatur (DUT) for Oslo er **-21.8 °C** iht. NS-EN 12831. Denne verdien er automatisk hentet basert på klimasone og brukes i varmetapsberegningene.",
+  "Er ventilasjonsanlegget TEK17-kompatibelt?": "SFP-verdien er satt til **≤ 1.5 kW/(m³/s)** som tilfredsstiller TEK17 §14-3. Varmegjenvinning er ≥ 80%. Imidlertid er VAV-minimumslufting for høy i nattmodus — dette gir 12% unødvendig energibruk.",
+  "Hva er estimert energibruk per m²?": "Opprinnelig design: **116 kWh/m²·år**. Etter VH-optimalisering: **108 kWh/m²·år**. TEK17-grensen er 115 kWh/m²·år. Optimaliseringen sparer ca. **NOK 72 000/år**.",
+  "Hvilke designkonflikter er funnet?": "3 konflikter identifisert:\n1. Samtidig oppvarming/kjøling i soner 3-5 (KRITISK — NOK 89 000/år)\n2. Varmepumpe underdimensjonert for spissbelastning i februar\n3. Radiator- og ventilasjonsreturer deler samme rørløp (temperaturkonflikt)",
+};
+
 type PanelType = "files" | "log" | "settings" | "ask" | null;
 
 const ProjectData = () => {
