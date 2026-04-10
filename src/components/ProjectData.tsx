@@ -31,6 +31,10 @@ type PanelType = "files" | "log" | "settings" | "ask" | null;
 const ProjectData = () => {
   const [activePanel, setActivePanel] = useState<PanelType>(null);
   const [uploading, setUploading] = useState(false);
+  const [chatMessages, setChatMessages] = useState<{ role: "user" | "ai"; text: string }[]>([]);
+  const [chatInput, setChatInput] = useState("");
+  const [typing, setTyping] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const toggle = (panel: PanelType) => setActivePanel(prev => prev === panel ? null : panel);
 
