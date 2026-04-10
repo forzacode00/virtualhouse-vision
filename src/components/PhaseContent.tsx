@@ -1,9 +1,11 @@
-import { AlertTriangle, TrendingDown, Banknote, Lightbulb, Ruler, CheckCircle2, Activity, Brain, Wrench } from "lucide-react";
+import { AlertTriangle, TrendingDown, Banknote, Lightbulb, CheckCircle2, Activity, Brain, Wrench, Zap, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 import KPICard from "./KPICard";
 import SimulationGauge from "./SimulationGauge";
 import PainPointsTimeline from "./PainPointsTimeline";
 import PerformanceChart from "./PerformanceChart";
+import DesignIssuesTimeline from "./DesignIssuesTimeline";
+import DesignPerformanceChart from "./DesignPerformanceChart";
 
 const phaseData: Record<number, {
   kpis: { icon: React.ReactNode; value: string; label: string; accentClass: string; glowColor: string }[];
@@ -11,13 +13,13 @@ const phaseData: Record<number, {
   gauge: { score: number; label: string };
 }> = {
   1: {
-    gauge: { score: 87, label: "Design Score" },
+    gauge: { score: 87, label: "Simulation Score" },
     kpis: [
-      { icon: <Ruler className="h-7 w-7" />, value: "12", label: "Design Conflicts Found", accentClass: "text-warning", glowColor: "var(--warning)" },
-      { icon: <TrendingDown className="h-7 w-7" />, value: "23%", label: "Energy Over-spec", accentClass: "text-destructive", glowColor: "var(--destructive)" },
-      { icon: <Banknote className="h-7 w-7" />, value: "NOK 1.2M", label: "Avoided Rework", accentClass: "text-success", glowColor: "var(--success)" },
+      { icon: <AlertTriangle className="h-7 w-7" />, value: "3", label: "Design Conflicts", accentClass: "text-destructive", glowColor: "var(--destructive)" },
+      { icon: <Shield className="h-7 w-7" />, value: "Marginal", label: "TEK17 Compliance", accentClass: "text-warning", glowColor: "var(--warning)" },
+      { icon: <Zap className="h-7 w-7" />, value: "116", label: "Projected kWh/m²·yr", accentClass: "text-warning", glowColor: "var(--warning)" },
     ],
-    insight: "Simulation detected 12 design conflicts and 23% energy over-specification before construction began — saving NOK 1.2M in rework costs.",
+    insight: "Simulation found 3 design conflicts and marginal TEK17 compliance. Optimization reduces energy use from 116 to 108 kWh/m²·yr, saving NOK 72,000/yr.",
   },
   2: {
     gauge: { score: 91, label: "Commissioning Score" },
@@ -57,6 +59,23 @@ const phaseData: Record<number, {
   },
 };
 
+const PhasePanels = ({ phase }: { phase: number }) => {
+  if (phase === 1) {
+    return (
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
+        <DesignIssuesTimeline />
+        <DesignPerformanceChart />
+      </section>
+    );
+  }
+  return (
+    <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
+      <PainPointsTimeline />
+      <PerformanceChart />
+    </section>
+  );
+};
+
 const PhaseContent = ({ phase }: { phase: number }) => {
   const data = phaseData[phase];
 
@@ -90,10 +109,7 @@ const PhaseContent = ({ phase }: { phase: number }) => {
       </div>
 
       {/* Main Content */}
-      <section className="grid grid-cols-1 gap-6 lg:grid-cols-[55fr_45fr]">
-        <PainPointsTimeline />
-        <PerformanceChart />
-      </section>
+      <PhasePanels phase={phase} />
     </motion.div>
   );
 };
