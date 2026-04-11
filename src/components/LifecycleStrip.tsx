@@ -20,7 +20,7 @@ interface LifecycleStripProps {
 }
 
 const LifecycleStrip = ({ activePhase, onPhaseChange }: LifecycleStripProps) => (
-  <div className="mb-6 border-b border-border">
+  <div className="mb-6 border-b border-border" data-tour="lifecycle-strip">
     <div className="flex">
       {phases.map((p) => {
         const isActive = p.num === activePhase;

@@ -3,6 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import LifecycleStrip from "@/components/LifecycleStrip";
 import PhaseContent from "@/components/PhaseContent";
 import ProjectData from "@/components/ProjectData";
+import OnboardingTour from "@/components/OnboardingTour";
 
 const today = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
@@ -11,6 +12,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen px-6 py-6 lg:px-10">
+      <OnboardingTour />
       {/* Header */}
       <header className="mb-6 flex items-center gap-3">
         <h1 className="text-2xl text-foreground">
