@@ -12,6 +12,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen px-6 py-6 lg:px-10">
+      <OnboardingTour />
       {/* Header */}
       <header className="mb-6 flex items-center gap-3">
         <h1 className="text-2xl text-foreground">
