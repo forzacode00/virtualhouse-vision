@@ -3,6 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import LifecycleStrip from "@/components/LifecycleStrip";
 import PhaseContent from "@/components/PhaseContent";
 import ProjectData from "@/components/ProjectData";
+import OnboardingTour from "@/components/OnboardingTour";
 
 const today = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 

@@ -152,7 +152,7 @@ const PhaseContent = ({ phase }: { phase: number }) => {
       </div>
 
       {/* KPI Row */}
-      <section className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <section data-tour="kpi-section" className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <div className="group rounded-lg border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_0_24px_hsl(185_70%_50%/0.12)]">
           <SimulationGauge score={data.gauge.score} label={data.gauge.label} />
         </div>
@@ -164,7 +164,7 @@ const PhaseContent = ({ phase }: { phase: number }) => {
       </section>
 
       {/* Insight callout — high visibility */}
-      <div className="mb-8 rounded-md border border-primary/25 bg-gradient-to-r from-primary/8 via-primary/4 to-transparent px-4 py-3">
+      <div data-tour="insight-box" className="mb-8 rounded-md border border-primary/25 bg-gradient-to-r from-primary/8 via-primary/4 to-transparent px-4 py-3">
         <div className="mb-1 flex items-center gap-2">
           <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/20">
             <Lightbulb className="h-3 w-3 text-primary" />
@@ -186,7 +186,9 @@ const PhaseContent = ({ phase }: { phase: number }) => {
       </div>
 
       {/* Main Content */}
-      <PhasePanels phase={phase} />
+      <div data-tour="detail-section">
+        <PhasePanels phase={phase} />
+      </div>
     </motion.div>
   );
 };
